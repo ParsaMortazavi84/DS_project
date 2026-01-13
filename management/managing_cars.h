@@ -13,9 +13,9 @@ public:
     managing_cars();
     bool insert(car);
     bool is_valid_insert(car);
-    void searching_base_on_brande();
-    void searching_base_on_price();
-    void searching_base_on_model();
+    void searching_base_on_brande(string);
+    void searching_base_on_price(int, int);
+    void searching_base_on_model(string);
 
 
 private:

@@ -1,11 +1,8 @@
 #include "../data_structure/doubly_linklist.h"
 
-template<class T>
-int doubly_linklist<T>::id = 0;
 
 template<class T>
 doubly_linklist<T>::doubly_linklist() {
-    id++;
 }
 
 template<class T>
@@ -22,7 +19,7 @@ doubly_linklist<T>* doubly_linklist<T>::insert(doubly_linklist *current, T new_d
         return current -> next;
     }
     else if(current == NULL){
-        doubly_linklist* temp = new doubly_linklist*;
+        doubly_linklist* temp = new doubly_linklist;
         temp->data = new_data;
         temp->prev = NULL;
         temp->next = NULL;

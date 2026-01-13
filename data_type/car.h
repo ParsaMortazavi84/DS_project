@@ -20,6 +20,7 @@ public:
 
     int get_price();
     int comparison(car , car);
+    bool is_valid(car);
 
     int price;
     string brande;
