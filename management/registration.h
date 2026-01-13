@@ -11,9 +11,12 @@ class registration: public doubly_linklist<user>
 public:
     registration();
     bool sign_in(string, string);
-    int is_valid_name(string);
+    int login(string, string);
+    int is_valid_name(user);
+
 private:
-    doubly_linklist<user> users;
+    doubly_linklist<user> *users = NULL;
+    doubly_linklist<user> *current_ptr = NULL;
 };
 
 #endif // REGISTERATION

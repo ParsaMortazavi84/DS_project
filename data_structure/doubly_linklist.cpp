@@ -1,31 +1,65 @@
-#include "doubly_linklist.h"
+#include "../data_structure/doubly_linklist.h"
+
+template<class T>
+int doubly_linklist<T>::id = 0;
 
 template<class T>
 doubly_linklist<T>::doubly_linklist() {
 }
 
 template<class T>
-void doubly_linklist<T>::insert(T new_data)
+doubly_linklist<T>* doubly_linklist<T>::insert(doubly_linklist *current, T new_data)
 {
-    current_ptr->data = new_data;
-    doubly_linklist* temp = current_ptr;
-    current_ptr = current_ptr->next;
-    current_ptr->prev = temp;
-    // delete temp;
+    doubly_linklist *return_ptr;
+    if(current->next == NULL){
+        doubly_linklist* temp = new doubly_linklist*;
+        temp->data = new_data;
+        temp->prev = current;
+        temp->next = NULL;
+        current->next = temp;
+        return current -> next;
+    }
+    else if(current == NULL){
+        doubly_linklist* temp = new doubly_linklist*;
+        temp->data = new_data;
+        temp->prev = NULL;
+        temp->next = NULL;
+        current = temp;
+        return current;
+    }
+    else{
+        return_ptr = insert(current->next, new_data);
+    }
+    return current->next;
 }
 
 template<class T>
-void doubly_linklist<T>::deletation(T target)
+int doubly_linklist<T>::deletation(doubly_linklist *current, T target)
 {
-    doubly_linklist* temp = this;
-    while (temp->data != target && temp != NULL)
-        temp = temp->next;
-    if(temp == NULL){
-        cout << "we can't find your car";
-        return;
+    if(current->data == target){
+        current->prev->next = current->next;
+        current->next->prev = current->prev;
+        return 1;
     }
-    temp->prev->next = temp->next;
-    temp->next->prev = temp->prev;
-
+    else if(current == NULL){
+        return 0;
+    }
+    else{
+        deletation(current->next, target);
+    }
 
 }
+
+template<class T>
+int doubly_linklist<T>::is_valid(doubly_linklist* root, T new_data)
+{
+    while(root != NULL){
+        if(new_data.comparison(new_data, root->data)){
+            return 1;
+        }
+        root = root->next;
+    }
+    return 0;
+}
+
+

@@ -9,14 +9,16 @@ class doubly_linklist
 {
 public:
     doubly_linklist();
-    void insert(T);//if next == null insert here
-    void deletation(T);//if data == T delete and next-> before = before and before->next = next
-    void set_time();
+    doubly_linklist* insert(doubly_linklist*, T);//if next == null insert here
+    int deletation(doubly_linklist* ,T);//if data == T delete and next-> before = before and before->next = next
+    int is_valid(doubly_linklist *, T);
 
-private:
+
+
+// properties
     T data;
-    T* next;
-    T* prev;
+    doubly_linklist* next;
+    doubly_linklist* prev;
 
 };
 
