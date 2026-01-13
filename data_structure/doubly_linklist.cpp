@@ -5,6 +5,7 @@ int doubly_linklist<T>::id = 0;
 
 template<class T>
 doubly_linklist<T>::doubly_linklist() {
+    id++;
 }
 
 template<class T>
@@ -12,11 +13,12 @@ doubly_linklist<T>* doubly_linklist<T>::insert(doubly_linklist *current, T new_d
 {
     doubly_linklist *return_ptr;
     if(current->next == NULL){
-        doubly_linklist* temp = new doubly_linklist*;
+        doubly_linklist* temp = new doubly_linklist;
         temp->data = new_data;
         temp->prev = current;
         temp->next = NULL;
         current->next = temp;
+
         return current -> next;
     }
     else if(current == NULL){

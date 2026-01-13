@@ -11,10 +11,16 @@ class managing_cars
 {
 public:
     managing_cars();
-    void insert(car);
+    bool insert(car);
+    bool is_valid_insert(car);
+    void searching_base_on_brande();
+    void searching_base_on_price();
+    void searching_base_on_model();
+
 
 private:
     doubly_linklist<car> *cars = NULL;
+    doubly_linklist<car> *current_ptr;
 
 };
 
