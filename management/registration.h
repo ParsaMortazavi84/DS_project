@@ -13,6 +13,7 @@ public:
     bool sign_in(string, string);
     int login(string, string);
     int is_valid_name(user);
+    void set_users(doubly_linklist<user>* data);
 
 private:
     doubly_linklist<user> *users = NULL;

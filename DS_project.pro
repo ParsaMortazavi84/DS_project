@@ -15,6 +15,7 @@ SOURCES += \
     main.cpp \
     ./data_type/user.cpp \
     ./management/registration.cpp \
+    data_type/customer.cpp \
     management/managing_cars.cpp
 
 HEADERS += \
@@ -23,4 +24,5 @@ HEADERS += \
     ./data_structure/doubly_linklist.h \
     ./data_type/user.h \
     ./management/registration.h \
+    data_type/customer.h \
     management/managing_cars.h

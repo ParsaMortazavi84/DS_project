@@ -22,7 +22,7 @@ bool registration::sign_in(string name, string password)// it's for guest
 
 int registration::login(string username, string password)
 {
-    doubly_linklist *root = users;
+    doubly_linklist<user> *root = users;
     while(root != NULL){
         if(root->data.valid_user(username, password)){
             return 1;
@@ -39,6 +39,11 @@ int registration::is_valid_name(user new_user)
         return 0;
     }
     return 1;
+}
+
+void registration::set_users(doubly_linklist<user> *data)
+{
+    users = data;
 }
 
 
