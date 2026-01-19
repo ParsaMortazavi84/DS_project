@@ -15,6 +15,7 @@ public:
 
 
 
+
 // properties
     T data;
     doubly_linklist* next;
