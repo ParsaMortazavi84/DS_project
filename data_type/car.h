@@ -9,12 +9,23 @@ enum situation{
     rented,
     reserved
 };
+enum models{
+    sedan,
+    hatchback,
+    hybrid,
+    suv
+};
+
+enum condition{
+    healthy,
+    maintenance
+};
 
 class car
 {
 public:
     car();
-    car(string , string, int);// for price ,brande and model we should get that from pc
+    car(string , models, int);// for price ,brande and model we should get that from pc
     //but for time and current we can set the defualt value for time don't matter for current -> available
     void set_price(int);
 
@@ -22,11 +33,19 @@ public:
     int comparison(car , car);
     bool is_valid(car);
 
+
+// attribute
+
     int price;
     string brande;
-    string model;
-    enum situation current_situation;
+    models model;
+    situation current_situation;
     time_t return_time;
+
+    condition current_condition;
+
+    // attribute for reserve
+
 
 };
 

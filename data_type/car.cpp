@@ -3,12 +3,13 @@
 car::car()
 {}
 
-car::car(string name, string model, int price)
+car::car(string name, models model, int price)
     :price(price),
     brande(name),
     model(model)
 {
     current_situation = available;
+    current_condition = healthy;
 }
 
 
