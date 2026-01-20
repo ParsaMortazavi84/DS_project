@@ -6,7 +6,7 @@ using namespace std;
 #include "user.h"
 #include "doubly_linklist.h"
 
-class registration: public doubly_linklist<user>
+class registration
 {
 public:
     registration();

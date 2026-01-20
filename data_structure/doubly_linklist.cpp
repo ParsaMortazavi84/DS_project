@@ -10,26 +10,22 @@ doubly_linklist<T>* doubly_linklist<T>::insert(doubly_linklist *current, T new_d
 {
     doubly_linklist *return_ptr;
     if(current->next == NULL){
-        doubly_linklist* temp = new doubly_linklist;
-        temp->data = new_data;
-        temp->prev = current;
-        temp->next = NULL;
-        current->next = temp;
-
-        return current -> next;
+        current->next = new doubly_linklist();
+        current->next->data = new_data;
+        current->next->prev = current;
+        current->next->next = NULL;
+        return current->next;
     }
     else if(current == NULL){
-        doubly_linklist* temp = new doubly_linklist;
-        temp->data = new_data;
-        temp->prev = NULL;
-        temp->next = NULL;
-        current = temp;
+        current = new doubly_linklist();
+        current->data = new_data;
+        current->prev = NULL;
+        current->next = NULL;
         return current;
     }
     else{
-        return_ptr = insert(current->next, new_data);
+        return insert(current->next, new_data);
     }
-    return current->next;
 }
 
 template<class T>
