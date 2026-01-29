@@ -8,7 +8,7 @@ doubly_linklist<T>::doubly_linklist() {
 template<class T>
 doubly_linklist<T>* doubly_linklist<T>::insert(doubly_linklist *current, T new_data)
 {
-    doubly_linklist *return_ptr;
+
     if(current->next == NULL){
         current->next = new doubly_linklist();
         current->next->data = new_data;
@@ -25,23 +25,26 @@ doubly_linklist<T>* doubly_linklist<T>::insert(doubly_linklist *current, T new_d
     }
     else{
         return insert(current->next, new_data);
-    }
+    }// the changing that happend in the insert function in the current->next list their saved in the original current \
+    soo we return the other insert function beacuse we want to save the current_ptr in the class that we use the doubly_linklist in.
 }
 
 template<class T>
-int doubly_linklist<T>::deletation(doubly_linklist *current, T target)
+doubly_linklist<T>* doubly_linklist<T>::deletation(doubly_linklist *current, T target)
 {
     if(current->data == target){
         current->prev->next = current->next;
         current->next->prev = current->prev;
-        return 1;
+        return current;
     }
     else if(current == NULL){
-        return 0;
+        return NULL;
     }
     else{
-        deletation(current->next, target);
+        current->next = deletation(current->next, target);
     }
+    return current;
+
 
 }
 

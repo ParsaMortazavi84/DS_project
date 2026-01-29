@@ -1,8 +1,9 @@
 #ifndef AVL_TREE_H
 #define AVL_TREE_H
 
+#include "customer.h"
 #include <car.h>
-
+#include "request.h"
 struct keys{
     keys();
     void set(string new_brand, models new_model){
@@ -57,9 +58,12 @@ public:
     AVL_TREE();
     AVL_TREE *insert(AVL_TREE* , car);
     AVL_TREE* deletation(AVL_TREE*, car);
-    AVL_TREE* search(AVL_TREE *current, car);
-    void set_attributes(car);
 
+    AVL_TREE *search(AVL_TREE *current, car);
+
+
+    void set_attributes(car);
+    void update_reservation_list(AVL_TREE*, customer, time_t, time_t);
 
     // balancing
     void balance();

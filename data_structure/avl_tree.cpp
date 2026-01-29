@@ -148,9 +148,15 @@ AVL_TREE *AVL_TREE::deletation(AVL_TREE *current, car value)
 
 
 
-void AVL_TREE::set_attributes(car new_data){
+void AVL_TREE:: set_attributes(car new_data){
     key.set(new_data.brande, new_data.model);
     value.set(new_data.price, new_data.current_situation, new_data.return_time, new_data.current_condition);
+}
+
+void AVL_TREE::update_reservation_list(AVL_TREE *current, customer client, time_t start_time, time_t end_time)
+{
+    request new_request(client, start_time, end_time);
+    // add the new_request to current->data.PQ.insert(new_request)
 }
 
 AVL_TREE* AVL_TREE::search(AVL_TREE* current, car target)
@@ -158,10 +164,10 @@ AVL_TREE* AVL_TREE::search(AVL_TREE* current, car target)
     keys new_key;
     new_key.set(target.brande, target.model);
     if(new_key < current->key){
-        search(current->left, target);
+        return search(current->left, target);
     }
     else if(current->key < new_key){
-        search(current->right, target);
+        return search(current->right, target);
     }
     else{
         return current;
