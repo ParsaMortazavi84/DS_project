@@ -32,7 +32,7 @@ private:
     doubly_linklist<car> cars;
     doubly_linklist<car> current_ptr;
 
-    AVL_TREE* avl;
+    AVL_TREE avl;
 
 
 };

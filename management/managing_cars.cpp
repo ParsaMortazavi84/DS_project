@@ -5,27 +5,20 @@ managing_cars::managing_cars() {}
 bool managing_cars::insert(car new_car)
 {
     cars.insert(new_car);
-    avl = avl->insert(avl, new_car);
+    avl.insert(new_car);
 
 }
 
 void managing_cars::deletation(car target)
 {
     cars.deletation(target);
-    avl = avl->deletation(avl, target);
+    avl.removed(target);
 }
 
 car managing_cars::exact_search(car target)// in this function we should do the finding job in the avl tree
 {
-    AVL_TREE* current = avl->search(avl, target);
-    car return_car;
-    return_car.return_time = current->value.return_time;
-    return_car.current_condition = current->value.current_condition;
-    return_car.current_situation = current->value.current_situation;
-    return_car.brande = current->key.brand;
-    return_car.model = current->key.model;
-    return_car.price = current->value.price;
-    return return_car;
+
+    return avl.search(target);
 }
 
 bool managing_cars::is_valid_insert(const car& new_car) // if we have a same car (same in the brand and model) the insertation was invalid
@@ -77,8 +70,8 @@ void managing_cars::update(customer current_customer, car target, time_t start_t
     // we should add that request to the car that be in cars \
     so first of all we should find the car
     // in the avl
-    AVL_TREE* current = avl->search(avl, target);
-    current->update_reservation_list(current, current_customer, start_time, end_time);
+    avl.search(target);
+    // current->update_reservation_list(crend, current_customer, start_time, end_time);
 
     // doubly_linklist
     doubly_linklist<car>::Node* root = cars.get_head();

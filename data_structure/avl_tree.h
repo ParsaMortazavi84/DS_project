@@ -266,12 +266,12 @@ public:
         root = insert(root, new_car);
     }
 
-    void remove(const car& target) {
+    void removed(car& target) {
         root = remove(root, target);
     }
 
-    bool search(const car& target) const {
-        return search(root, target) != nullptr;
+    car search(car& target) const {
+        return search(root, target)->data;
     }
 
     car* find(const car& target) {
