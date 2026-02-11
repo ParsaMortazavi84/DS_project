@@ -18,25 +18,25 @@ and we should have a penalty paramater the being assumed was a number of day of 
 3-pay the dept and add that to sum_of_income \
 4-make a reservation and check the validation of that
 
-class customer:public user
+
+
+class   customer:public user
 {
 public:
+    customer();
     customer(string, string);
     void reserve_request_function(car);
     void rental_request(car);
-    bool valid_reservation(car, time_t);
 
-
-    int calculate_penalty();
-    void payment();
+    car payment();
 
 
 
 
 
 private:
-    doubly_linklist<car>* rental_cars;
-    doubly_linklist<car>* reserve_requests;
+    doubly_linklist<car> rental_cars;
+    doubly_linklist<car> reserve_requests;
     int dept = 0;
     int sum_of_income;
 };

@@ -100,7 +100,7 @@ public:
     ~heap(){
         clear(root);
     }
-    bool empty(){
+    bool empty() const{
         return root == nullptr;
     }
 
@@ -108,7 +108,6 @@ public:
         Node* new_node = new Node(new_data);
         if(!root){
             root = new_node;
-            delete new_data;
             return;
         }
 
@@ -159,6 +158,7 @@ public:
         root->data = last_data;
 
         bubble_down(root);
+
         return temp;
 
 

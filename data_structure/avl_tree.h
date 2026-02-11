@@ -7,341 +7,312 @@ using namespace std;
 #include "customer.h"
 #include "car.h"
 #include "request.h"
-struct keys{
-    keys(){
+#include "priority_queue.h"
 
-    }
-    void set(string new_brand, models new_model){
-        brand = new_brand;
-        model = new_model;
-    }
-    bool operator<(const keys& key) const{
-        if(brand < key.brand){
-            return 1;
-        }
-        else if(brand == key.brand && model < key.model){
-            return 1;
-        }
-        else{
-            return 0;
-        }
-    }
-    bool operator==(const keys& key){
-        if(brand == key.brand && model == key.model)
-            return 1;
-        return 0;
-    }
+class AVL_TREE;
 
+class AVL_node {
+    friend class AVL_TREE;
 
-    string brand;
-    models model;
+private:
+    car data;  // Store car object directly
+    AVL_node* left;
+    AVL_node* right;
+    int height;
+
+public:
+    AVL_node(const car& car_data)
+        : data(car_data), left(nullptr), right(nullptr), height(1) {}
+
+    const car& get_data() const { return data; }
 };
-struct values{
 
-    void set(int new_price, situation new_situation, time_t return_time, condition new_condition){
-        price = new_price;
-        current_situation = new_situation;
-        this->return_time = return_time;
-        current_condition = new_condition;
-    }
-
-
-    int price;
-    situation current_situation;
-    time_t return_time;
-    condition current_condition;
-};
 
 // we should add some search thing in this class
 
 class AVL_TREE{
+
 private:
-    keys key;
-    values value;
-    AVL_TREE* right;
-    AVL_TREE* left;
-
-    int height;
+    AVL_node* root;
 
 
-
-
-public:
-
-    friend ostream& operator<<(ostream &out, const AVL_TREE& current);
-
-
-    AVL_TREE(){
-        right = nullptr;
-        left = nullptr;
-        height = 1;
-    }
-    ~AVL_TREE(){
-        height = 0;
-
-    }
-
-
-
-    int get_height(AVL_TREE* node) {
+    int get_height(AVL_node* node){
         return node ? node->height : 0;
     }
 
-
-
-
-    AVL_TREE *insert(AVL_TREE* current , car new_data)
-    {
-        keys new_key;
-        new_key.set(new_data.brande, new_data.model);
-
-
-        if(current == NULL){
-            current = new AVL_TREE();
-            current->set_attributes(new_data);
-            current->height = 1;
-            return current;
-        }
-        else if(current->key < new_key){
-            current->right = insert(current->right, new_data);
-        }
-        else if(current->key == new_key){
-            cout << "invalid insertion";
-            return current;
-        }
-        else{
-            current->left = insert(current->left, new_data);
-        }
-
-        current->height = 1 + max_height(get_height(current->left), get_height(current->right));
-
-        //check the balancing
-        int balance = get_height(current->left) - get_height(current->right);
-
-
-        //if not balanced in the left side
-        if(balance > 1){
-            //left right case
-            if(current->left->key < new_key){
-                current->left = leftrotation(current->left);
-                return rightrotation(current);
-            }
-
-            // left left case
-
-            else{
-                return rightrotation(current);
-            }
-        }
-        // if not balance in the right side
-        else if(balance < -1){
-            //right left case
-
-            if(new_key < current->right->key){
-                current->right = rightrotation(current->right);
-                return leftrotation(current);
-            }
-
-            // right right case
-            else{
-                return leftrotation(current);
-            }
-
-        }
-        return current;
-
-
+    int get_balance(AVL_node* node){
+        return node ? get_height(node->left) - get_height(node->right) : 0;
     }
-    AVL_TREE* deletation(AVL_TREE* current, car value)
-    {
-        keys new_key;
-        new_key.set(value.brande, value.model);
-        if(current == NULL){
-            cout << "Tree is empty";
-            return NULL;
+
+    void update_height(AVL_node* node){
+        if(node)
+            node->height = 1 + maximum(get_height(node->left), get_height(node->right));
+    }
+
+    int maximum(int height1, int height2){
+        if(height1 < height2)
+            return height2;
+        return height1;
+    }
+
+    AVL_node* right_rotation(AVL_node* y){
+        AVL_node* x = y->left;
+        AVL_node* T2 = x->right;
+
+        x->right = y;
+        y->left = T2;
+
+        update_height(y);
+        update_height(x);
+
+        return x;
+    }
+
+    AVL_node* left_rotation(AVL_node* x){
+        AVL_node* y = x->right;
+        AVL_node* T1 = y->left;
+
+        y->left = x;
+        x->right = T1;
+
+        update_height(x);
+        update_height(y);
+
+        return y;
+    }
+    AVL_node* insert(AVL_node* node, car new_car) {
+        // 1. Perform normal BST insertion
+        if (!node) {
+            return new AVL_node(new_car);
         }
-        if(new_key < current->key){
-            current->left = deletation(current->left, value);
+
+        if (new_car < node->data) {
+            node->left = insert(node->left, new_car);
         }
-        else if(current->key < new_key){
-            current->right = deletation(current->right, value);
+        else if (node->data < new_car) {  // This uses operator<
+            node->right = insert(node->right, new_car);
         }
-        else{
-            if(current->left == NULL && current->right == NULL){
-                delete current;
-                current = NULL;
-            }
-            //if it has two childs
-            else if(current->left != NULL && current->right != NULL){
-                AVL_TREE* max = max_utility(current->left);
-                current->key = max->key;
-                current->value = max->value;
-                car target_car;
-                target_car.brande = max->key.brand;
-                target_car.model = max->key.model;
-                deletation(current->left, target_car);
-            }
-            // if it has only one child
-            else{
-                AVL_TREE* child = current;
-                if(current->right != NULL){
-                    current = current->right;
+        else {
+            throw runtime_error("Car already exists in inventory");
+        }
+
+        // 2. Update height
+        update_height(node);
+
+        // 3. Get balance factor
+        int balance = get_balance(node);
+
+        // 4. Balance the tree
+        // Left Left Case
+        if (balance > 1 && new_car < node->left->data) {
+            return right_rotation(node);
+        }
+
+        // Left Right Case
+        if (balance > 1 && new_car > node->left->data) {
+            node->left = left_rotation(node->left);
+            return right_rotation(node);
+        }
+
+        // Right Right Case - FIXED: new_car > node->right->data
+        if (balance < -1 && new_car > node->right->data) {
+            return left_rotation(node);
+        }
+
+        // Right Left Case
+        if (balance < -1 && new_car < node->right->data) {
+            node->right = right_rotation(node->right);
+            return left_rotation(node);
+        }
+
+        return node;
+    }
+
+
+    AVL_node* find_min(AVL_node* node) const {
+        while (node && node->left) {
+            node = node->left;
+        }
+        return node;
+    }
+
+    AVL_node* remove(AVL_node* node, car& target) {
+        if (!node) {
+            return nullptr;
+        }
+
+        // 1. Perform BST deletion
+        if (target < node->data) {
+            node->left = remove(node->left, target);
+        }
+        else if (node->data < target) {
+            node->right = remove(node->right, target);
+        }
+        else {
+            // Node to delete found
+            if (!node->left || !node->right) {
+                AVL_node* temp = node->left ? node->left : node->right;
+                if (!temp) {
+                    temp = node;
+                    node = nullptr;
                 }
-                else{
-                    current = current->left;
+                else {
+                    *node = *temp;  // Copy the non-null child
                 }
-                child->left = NULL;
-                child->right = NULL;
-                delete child;
-                child = NULL;
+                delete temp;
+            }
+            else {
+                // Node with two children
+                AVL_node* temp = find_min(node->right);
+                node->data = temp->data;  // Copy data
+                node->right = remove(node->right, temp->data);
             }
         }
-        current->height = 1 + max_height(get_height(current->left), get_height(current->right));
-        int balance = get_height(current->left) - get_height(current->right);
 
-        //if not balanced in the left side
-        if(balance > 1){
-            //left right case
-            if(current->left->key < new_key){
-                current->left = leftrotation(current->left);
-                return rightrotation(current);
-            }
-
-            // left left case
-
-            else{
-                return rightrotation(current);
-            }
+        if (!node) {
+            return nullptr;
         }
-        // if not balance in the right side
-        else if(balance < -1){
-            //right left case
 
-            if(new_key < current->right->key){
-                current->right = rightrotation(current->right);
-                return leftrotation(current);
-            }
+        // 2. Update height
+        update_height(node);
 
-            // right right case
-            else{
-                return leftrotation(current);
-            }
+        // 3. Balance the tree
+        int balance = get_balance(node);
 
+        // Left Left Case
+        if (balance > 1 && get_balance(node->left) >= 0) {
+            return right_rotation(node);
         }
-        return current;
+
+        // Left Right Case
+        if (balance > 1 && get_balance(node->left) < 0) {
+            node->left = left_rotation(node->left);
+            return right_rotation(node);
+        }
+
+        // Right Right Case
+        if (balance < -1 && get_balance(node->right) <= 0) {
+            return left_rotation(node);
+        }
+
+        // Right Left Case
+        if (balance < -1 && get_balance(node->right) > 0) {
+            node->right = right_rotation(node->right);
+            return left_rotation(node);
+        }
+
+        return node;
     }
 
-    AVL_TREE *search(AVL_TREE *current, car target)
-    {
-        if(!current) return current;
+    // Search helper
+    AVL_node* search(AVL_node* node, car target) const {
+        if (!node || node->data == target) {
+            return node;
+        }
 
-        keys new_key;
-        new_key.set(target.brande, target.model);
-        if(new_key < current->key){
-            return search(current->left, target);
+        if (target < node->data) {
+            return search(node->left, target);
         }
-        else if(current->key < new_key){
-            return search(current->right, target);
-        }
-        else{
-            return current;
+        else {
+            return search(node->right, target);
         }
     }
 
-
-    void set_attributes(car new_data){
-        key.set(new_data.brande, new_data.model);
-        value.set(new_data.price, new_data.current_situation, new_data.return_time, new_data.current_condition);
-    }
-    void update_reservation_list(AVL_TREE* current, customer client, time_t start_time, time_t end_time)
-    {
-        request new_request(client, start_time, end_time);
-        // add the new_request to current->data.PQ.insert(new_request)
-    }
-
-    // balancing
-    int max_height(int left_height, int right_height)
-    {
-        if(left_height < right_height)
-            return right_height;
-        return left_height;
-    }
-    AVL_TREE* leftrotation(AVL_TREE* current)
-    {
-        if(!current || !current->right) return current;
-
-        AVL_TREE* new_data = current->right;
-        current->right = new_data->left;
-        new_data->left = current;
-        current->height = 1 + max_height(get_height(current->left), get_height(current->right));
-        new_data->height = 1 + max_height(get_height(new_data->left), get_height(new_data->right));
-        return new_data;
-    }
-    AVL_TREE* rightrotation(AVL_TREE* current)
-    {
-        if(!current || !current->left) return current;
-
-        AVL_TREE* new_data = current->left;
-        current->left = new_data->right;
-        new_data->right = current;
-        current->height = 1 + max_height(get_height(current->left), get_height(current->right));
-        new_data->height = 1 + max_height(get_height(new_data->left), get_height(new_data->right));
-        return new_data;
-    }
-
-    //display
-    void inorder_utility(AVL_TREE* current)
-    {
-        if(current == NULL){
-            return;
+    // Clear helper
+    void clear(AVL_node* node) {
+        if (node) {
+            clear(node->left);
+            clear(node->right);
+            delete node;
         }
-        inorder_utility(current->left);
-        cout << *current;
-        inorder_utility(current->right);
     }
-    void preorder_utility(AVL_TREE* current)
-    {
-        if(current == NULL){
-            return;
+
+    // Traversal helpers
+    void inorder(AVL_node* node, ostream& out) const {
+        if (node) {
+            inorder(node->left, out);
+            node->data.print();
+            inorder(node->right, out);
         }
-        cout << *current;
-        preorder_utility(current->left);
-        preorder_utility(current->right);
     }
-    void postorder_utility(AVL_TREE* current){
-        if(current == NULL){
-            return;
+
+    void preorder(AVL_node* node, ostream& out) const {
+        if (node) {
+            node->data.print();
+            preorder(node->left, out);
+            preorder(node->right, out);
         }
-        postorder_utility(current->left);
-        postorder_utility(current->right);
-        cout << *current;
     }
 
+    void postorder(AVL_node* node, ostream& out) const {
+        if (node) {
+            postorder(node->left, out);
+            postorder(node->right, out);
+            node->data.print();
+        }
+    }
+public:
+    AVL_TREE() : root(nullptr) {}
 
-    AVL_TREE *max_utility(AVL_TREE* current)
-    {
-        if(!current || current->right == NULL)
-            return current;
-        else return max_utility(current->right);
+    ~AVL_TREE() {
+        clear();
     }
 
+    // Disable copy constructor and assignment operator
+    AVL_TREE(const AVL_TREE&) = delete;
+    AVL_TREE& operator=(const AVL_TREE&) = delete;
 
+    void insert(const car& new_car) {
+        root = insert(root, new_car);
+    }
 
-private:
-    keys key;
-    values value;
-    AVL_TREE* right;
-    AVL_TREE* left;
+    void remove(const car& target) {
+        root = remove(root, target);
+    }
 
-    int height;
+    bool search(const car& target) const {
+        return search(root, target) != nullptr;
+    }
+
+    car* find(const car& target) {
+        AVL_node* node = search(root, target);
+        return node ? &(node->data) : nullptr;
+    }
+
+    void clear() {
+        clear(root);
+        root = nullptr;
+    }
+
+    bool empty() const {
+        return root == nullptr;
+    }
+
+    void inorder(ostream& out = cout) const {
+        inorder(root, out);
+    }
+
+    void preorder(ostream& out = cout) const {
+        preorder(root, out);
+    }
+
+    void postorder(ostream& out = cout) const {
+        postorder(root, out);
+    }
+
+    // Add reservation to a car
+    // void add_reservation(const car& target,request new_request) {
+    //     AVL_node* node = search(root, target);
+    //     if (node) {
+    //         node->reservation_queue.insert(new_request);
+    //     }
+    //     else {
+    //         throw runtime_error("Car not found");
+    //     }
+    // }
+
 
 };
-
-ostream& operator<<(ostream& out, const AVL_TREE& current){
-    out << "brand: " << current.key.brand << "\t model: " << current.key.model;
-    return out;
-
-}
 
 
 #endif // AVL_TREE_H

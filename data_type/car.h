@@ -30,10 +30,12 @@ public:
     void set_price(int);
 
     int get_price();
-    int comparison(car , car);
     bool is_valid(car);
+    bool operator==(const car&);
+    bool operator<(const car &);
+    bool operator>(const car &);
 
-
+    void print();
 // attribute
 
     int price;
@@ -44,7 +46,7 @@ public:
 
     condition current_condition;
 
-    // attribute for reserve
+    // attribute for reserve PQ
 
 
 };
