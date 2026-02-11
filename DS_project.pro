@@ -9,14 +9,14 @@ INCLUDEPATH += \
     $$PWD/management
 
 SOURCES += \
-    ./data_structure/avl_tree.cpp \
     ./data_type/car.cpp \
-    ./data_structure/doubly_linklist.cpp \
+    data_type/request.cpp \
     main.cpp \
     ./data_type/user.cpp \
     ./management/registration.cpp \
     data_type/customer.cpp \
-    management/managing_cars.cpp
+    management/managing_cars.cpp \
+    management/managing_customer.cpp
 
 HEADERS += \
     ./data_structure/avl_tree.h \
@@ -24,5 +24,11 @@ HEADERS += \
     ./data_structure/doubly_linklist.h \
     ./data_type/user.h \
     ./management/registration.h \
+    data_structure/heap.h \
+    data_structure/linklist.h \
+    data_structure/priority_queue.h \
+    data_structure/queue.h \
     data_type/customer.h \
-    management/managing_cars.h
+    data_type/request.h \
+    management/managing_cars.h \
+    management/managing_customer.h
