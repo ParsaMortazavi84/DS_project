@@ -6,7 +6,7 @@ using namespace std;
 
 #include "doubly_linklist.h"
 #include "avl_tree.h"
-
+#include "customer.h"
 #include "car.h"
 
 class managing_cars
@@ -14,9 +14,9 @@ class managing_cars
 public:
     managing_cars();
     bool insert(car);
-    bool is_valid_insert(car);
+    bool is_valid_insert(const car&);
     void deletation(car target);
-    void exact_search(car target);
+    car exact_search(car target);
 
 
     void searching_base_on_brande(string);
@@ -24,10 +24,13 @@ public:
     void searching_base_on_model(models);
 
 
+    void update(customer, car, time_t, time_t);
+
+
 
 private:
-    doubly_linklist<car> *cars = NULL;
-    doubly_linklist<car> *current_ptr;
+    doubly_linklist<car> cars;
+    doubly_linklist<car> current_ptr;
 
     AVL_TREE* avl;
 

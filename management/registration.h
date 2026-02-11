@@ -11,13 +11,12 @@ class registration
 public:
     registration();
     bool sign_in(string, string);
-    int login(string, string);
+    bool login(string, string);
     int is_valid_name(user);
-    void set_users(doubly_linklist<user>* data);
+    void set_users(doubly_linklist<user> data);
 
 private:
-    doubly_linklist<user> *users = NULL;
-    doubly_linklist<user> *current_ptr = NULL;
+    doubly_linklist<user> users;
 };
 
 #endif // REGISTERATION

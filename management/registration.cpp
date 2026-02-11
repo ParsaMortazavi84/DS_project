@@ -9,39 +9,24 @@ bool registration::sign_in(string name, string password)// it's for guest
     if(is_valid_name(new_user) == 0){
         return false;
     }
-    if(users == NULL){
-        users = users->insert(users, new_user);
-        current_ptr = users;
-    }
-    else{
-        current_ptr = users->insert(current_ptr, new_user);
-    }
+    users.insert(new_user);
     return true;
 
 }
 
-int registration::login(string username, string password)
+bool registration::login(string username, string password)
 {
-    doubly_linklist<user> *root = users;
-    while(root != NULL){
-        if(root->data.valid_user(username, password)){
-            return 1;
-        }
-        root = root->next;
-    }
-    return 0;
+    user new_user(username, password);
+    return users.is_valid(new_user);
 }
 
 
 int registration::is_valid_name(user new_user)
 {
-    if(users->is_valid(users, new_user)){
-        return 0;
-    }
-    return 1;
+    return users.is_valid(new_user);
 }
 
-void registration::set_users(doubly_linklist<user> *data)
+void registration::set_users(doubly_linklist<user> data)
 {
     users = data;
 }
