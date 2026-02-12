@@ -23,6 +23,11 @@ public:
 
     void renewal(car);// of that car find out the return_time of car and we know that the start time of next time and add that some day and we have the end time
     car payement_function(car);// that call the payment function of current_customer
+
+
+    doubly_linklist<customer> get_customers(){
+        return customers;
+    }
 private:
     doubly_linklist<customer> customers;
 

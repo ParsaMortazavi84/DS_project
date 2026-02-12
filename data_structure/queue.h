@@ -11,7 +11,7 @@ class queue
 {
 public:
     queue() {
-        list = NULL;
+
     }
     ~queue() {
         clear();

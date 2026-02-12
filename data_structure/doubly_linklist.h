@@ -9,7 +9,7 @@ class doubly_linklist
 {
 public:
     doubly_linklist()
-        : head(nullptr),
+        :head(nullptr),
         tail(nullptr),
         size(0)
     {}
@@ -123,9 +123,8 @@ public:
 
 private:
 // properties   
-
-    Node *tail;
     Node *head;
+    Node *tail;
     int size;
 
 };

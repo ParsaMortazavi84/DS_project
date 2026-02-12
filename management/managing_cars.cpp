@@ -65,7 +65,7 @@ void managing_cars::searching_base_on_model(models model)
 
 }
 
-void managing_cars::update(customer current_customer, car target, time_t start_time, time_t end_time)
+void managing_cars::update_pq(customer current_customer, car target, time_t start_time, time_t end_time)
 {
     // we should add that request to the car that be in cars \
     so first of all we should find the car
@@ -79,8 +79,12 @@ void managing_cars::update(customer current_customer, car target, time_t start_t
         if(root->data.model == target.model && root->data.brande == target.brande){
             break;
         }
+        root = root->next;
     }
     // we find our target in the doubly_linklist
     request new_request(current_customer, start_time, end_time);
-    // add that in the PQ root->data.PQ.insert(new_request)
+    root->data.reservation_list.insert(new_request);
+
+
+
 }

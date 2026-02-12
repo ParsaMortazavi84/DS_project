@@ -1,9 +1,12 @@
 #ifndef CAR_H
 #define CAR_H
+
 #include <iostream>
 using namespace std;
 #include <ctime>
+#include "priority_queue.h"
 
+#include "request.h"
 enum situation{
     available,
     rented,
@@ -36,7 +39,10 @@ public:
     bool operator>(const car &);
 
     void print();
-// attribute
+
+    void add_reserve(request);
+    request next_reseve();
+
 
     int price;
     string brande;
@@ -48,7 +54,7 @@ public:
 
     // attribute for reserve PQ
 
-
+    priority_queue<request> reservation_list;
 };
 
 #endif // CAR_H

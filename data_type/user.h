@@ -14,6 +14,7 @@ public:
     int valid_password(string);
     int valid_user(string, string);
     string getName() const;
+    string getPassword() const;
     void setName(const string &newName);
 
     void setPassword(const string &newPassword);

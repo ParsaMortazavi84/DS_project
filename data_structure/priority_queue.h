@@ -2,7 +2,6 @@
 #define PRIORITY_QUEUE_H
 
 #include "heap.h"
-#include "request.h"
 #include <stdexcept>
 
 
@@ -32,6 +31,10 @@ public:
 
     void insert(T new_data){
         PQ.insert(new_data);
+    }
+
+    void operator=(priority_queue<T> another_queue){
+        PQ = another_queue.PQ;
     }
 
 private:

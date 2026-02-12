@@ -153,7 +153,7 @@ public:
         else if(last_node->parent->right_child == last_node){
             last_node->parent->right_child = nullptr;
         }
-        T last_data = last_node;
+        T last_data = last_node->data;
         last_node->data = root->data;
         root->data = last_data;
 
@@ -161,9 +161,9 @@ public:
 
         return temp;
 
-
-
     }
+
+
 
 };
 

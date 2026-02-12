@@ -33,6 +33,11 @@ string user::getName() const
     return name;
 }
 
+string user::getPassword() const
+{
+    return password;
+}
+
 void user::setName(const string &newName)
 {
     name = newName;

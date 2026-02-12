@@ -20,24 +20,27 @@ and we should have a penalty paramater the being assumed was a number of day of 
 
 
 
-class   customer:public user
+class customer:public user
 {
 public:
     customer();
     customer(string, string);
+    customer(customer const &);
     void reserve_request_function(car);
     void rental_request(car);
+
+    bool equal(const customer&);
 
     car payment();
 
 
-
+    int get_debt();
 
 
 private:
     doubly_linklist<car> rental_cars;
     doubly_linklist<car> reserve_requests;
-    int dept = 0;
+    int debt = 0;
     int sum_of_income;
 };
 

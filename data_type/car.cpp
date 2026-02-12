@@ -73,5 +73,15 @@ void car::print()
 
 }
 
+void car::add_reserve(request new_request)
+{
+    reservation_list.insert(new_request);
+}
+
+request car::next_reseve()
+{
+    return reservation_list.pop();
+}
+
 
 

@@ -24,7 +24,7 @@ public:
     void searching_base_on_model(models);
 
 
-    void update(customer, car, time_t, time_t);
+    void update_pq(customer, car, time_t, time_t);
 
 
 

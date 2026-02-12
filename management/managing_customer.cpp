@@ -54,17 +54,22 @@ void managing_customer::set_customers(doubly_linklist<customer> data)
 
 bool managing_customer::valid_reserve_request(managing_cars *managing_cars_pointer, car target, time_t start_time, time_t end_time)
 {
+    if(target.current_situation == available && target.current_condition != maintenance){
+        return true;
+    }
+
     car resualt = managing_cars_pointer->exact_search(target);
     if(start_time <= resualt.return_time){
         return false;
     }
 
+    request temp(current_customer->data, start_time, end_time);
 
-    // then we should check the priority queue which we later add that in the car's attribute \
-    /////////////////////////////////   PQ   \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-
-
-
+    while(!target.reservation_list.empty()){
+        auto x = target.reservation_list.pop();
+        if(x.conflicts_with(temp))
+            return false;
+    }
 
     return true;
 }
@@ -72,6 +77,9 @@ bool managing_customer::valid_reserve_request(managing_cars *managing_cars_point
 void managing_customer::reservation(managing_cars *managing_cars_pointer, car target, time_t start_time, time_t end_time)
 {
     // managing_cars_pointer -> update(current_customer->data, target, start_time, end_time)
+    managing_cars_pointer->update_pq(current_customer->data, target, start_time, end_time);
+    current_customer->data.reserve_request_function(target);
+    cout << "request is registered" << endl;
     // we should add a function that update the attribute in the some \
     the function should get the start_time and, end_time, car target, current_customer \
     then should add them in the priority queue
@@ -79,7 +87,7 @@ void managing_customer::reservation(managing_cars *managing_cars_pointer, car ta
 
 }
 
-car managing_customer::payement_function(car)
+car managing_customer::payement_function(car )
 {
     // we should take the car of current_customer and then pass that to the return car
 }
