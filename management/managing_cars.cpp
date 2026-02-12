@@ -85,6 +85,15 @@ void managing_cars::update_pq(customer current_customer, car target, time_t star
     request new_request(current_customer, start_time, end_time);
     root->data.reservation_list.insert(new_request);
 
+}
 
+void managing_cars::update_car(car target){
+    doubly_linklist<car>::Node* root = cars.get_head();
+    while(root != nullptr){
+        if(root->data.brande == target.brande && root->data.model == target.model){
+            root->data = target;
+        }
+        root = root->next;
+    }
 
 }

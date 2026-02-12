@@ -45,3 +45,8 @@ int customer::get_debt()
 {
     return debt;
 }
+
+int customer::set_debt(int data)
+{
+    debt += data;
+}

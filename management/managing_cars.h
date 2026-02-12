@@ -25,12 +25,12 @@ public:
 
 
     void update_pq(customer, car, time_t, time_t);
-
+    void update_car(car);
 
 
 private:
     doubly_linklist<car> cars;
-    doubly_linklist<car> current_ptr;
+
 
     AVL_TREE avl;
 

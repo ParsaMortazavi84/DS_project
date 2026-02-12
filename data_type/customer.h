@@ -35,6 +35,7 @@ public:
 
 
     int get_debt();
+    int set_debt(int);
 
 
 private:
