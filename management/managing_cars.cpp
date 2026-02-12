@@ -83,7 +83,7 @@ void managing_cars::update_pq(customer current_customer, car target, time_t star
     }
     // we find our target in the doubly_linklist
     request new_request(current_customer, start_time, end_time);
-    root->data.reservation_list.insert(new_request);
+    root->data.reservation_list->insert(new_request);
 
 }
 

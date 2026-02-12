@@ -12,9 +12,9 @@ int main()
     car new_data3("benze_c100", sedan, 10000);
     car new_data4("benze_c100", sedan, 20000);
     car new_data5("benze_jak", sedan, 1000000);
-    doubly_linklist<car> cars;
-    cars.insert(new_data1);
-    cars.insert(new_data2);
-    cout << cars.get_head()->data.get_price();
+    doubly_linklist<car> cars09;
+    cars09.insert(new_data1);
+    cars09.insert(new_data2);
+    cout << cars09.get_head()->data.get_price();
 
 }

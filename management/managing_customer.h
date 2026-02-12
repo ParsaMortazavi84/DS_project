@@ -25,9 +25,7 @@ public:
     car payement_function(car);// that call the payment function of current_customer
 
 
-    doubly_linklist<customer> get_customers(){
-        return customers;
-    }
+    doubly_linklist<customer> get_customers();
 private:
     doubly_linklist<customer> customers;
 

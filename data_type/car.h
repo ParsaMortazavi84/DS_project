@@ -4,9 +4,12 @@
 #include <iostream>
 using namespace std;
 #include <ctime>
+
 #include "priority_queue.h"
 
-#include "request.h"
+
+
+
 enum situation{
     available,
     rented,
@@ -24,12 +27,18 @@ enum condition{
     maintenance
 };
 
+class request;
+template<typename T> class priority_queue;
+
 class car
 {
 public:
     car();
     car(string , models, int);// for price ,brande and model we should get that from pc
     //but for time and current we can set the defualt value for time don't matter for current -> available
+
+    ~car();
+
     void set_price(int);
 
     int get_price();
@@ -54,7 +63,10 @@ public:
 
     // attribute for reserve PQ
 
-    priority_queue<request> reservation_list;
+    priority_queue<request> *reservation_list;
+
+
+
 };
 
 #endif // CAR_H

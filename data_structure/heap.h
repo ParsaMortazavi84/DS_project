@@ -117,12 +117,12 @@ public:
         while(!node_queue.empty()){
             Node* current = node_queue.pop();
 
-            if(current->left_child){
+            if(!current->left_child){
                 current->left_child = new_node;
                 new_node->parent = current;
                 break;
             }
-            else if(current->right_child){
+            else if(!current->right_child){
                 current->right_child = new_node;
                 new_node->parent = current;
                 break;

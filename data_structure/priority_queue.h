@@ -11,8 +11,6 @@ class priority_queue
 public:
     priority_queue() = default;
 
-    ~ priority_queue() = default;
-
     T top() const{
         if(PQ.empty())
             throw runtime_error("PQ is empty");
@@ -36,6 +34,7 @@ public:
     void operator=(priority_queue<T> another_queue){
         PQ = another_queue.PQ;
     }
+
 
 private:
     heap<T> PQ;

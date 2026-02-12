@@ -35,14 +35,20 @@ public:
 
 
     int get_debt();
-    int set_debt(int);
+    void set_debt(int);
 
+
+
+
+    doubly_linklist<car> get_reserve_requests() const;
+
+    doubly_linklist<car> getRental_cars() const;
 
 private:
     doubly_linklist<car> rental_cars;
     doubly_linklist<car> reserve_requests;
     int debt = 0;
-    int sum_of_income;
+    int sum_of_income = 0;
 };
 
 #endif // CUSTOMER_H

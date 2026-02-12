@@ -65,8 +65,8 @@ bool managing_customer::valid_reserve_request(managing_cars *managing_cars_point
 
     request temp(current_customer->data, start_time, end_time);
 
-    while(!target.reservation_list.empty()){
-        auto x = target.reservation_list.pop();
+    while(!target.reservation_list->empty()){
+        auto x = target.reservation_list->pop();
         if(x.conflicts_with(temp))
             return false;
     }
@@ -90,6 +90,10 @@ void managing_customer::reservation(managing_cars *managing_cars_pointer, car ta
 car managing_customer::payement_function(car )
 {
     // we should take the car of current_customer and then pass that to the return car
+}
+
+doubly_linklist<customer> managing_customer::get_customers(){
+    return customers;
 }
 
 

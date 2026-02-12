@@ -1,15 +1,24 @@
 #include "car.h"
+#include "priority_queue.h"
+#include "request.h"
 
 car::car()
+    :reservation_list(new priority_queue<request>())
 {}
 
 car::car(string name, models model, int price)
     :price(price),
     brande(name),
-    model(model)
+    model(model),
+    reservation_list(new priority_queue<request>())
 {
     current_situation = available;
     current_condition = healthy;
+}
+
+car::~car()
+{
+    delete reservation_list;  // Clean up
 }
 
 
@@ -75,12 +84,12 @@ void car::print()
 
 void car::add_reserve(request new_request)
 {
-    reservation_list.insert(new_request);
+    reservation_list->insert(new_request);
 }
 
 request car::next_reseve()
 {
-    return reservation_list.pop();
+    return reservation_list->pop();
 }
 
 

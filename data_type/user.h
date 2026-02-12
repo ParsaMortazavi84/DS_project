@@ -3,14 +3,18 @@
 
 
 #include <iostream>
+#include <functional>  // Add this for hash
+
 using namespace std;
-hash<string> h;
+
+inline hash<string> h;
 
 class user
 {
 public:
     user();
     user(string , string);// and in this function we should hash the password
+    ~user() = default;
     int valid_password(string);
     int valid_user(string, string);
     string getName() const;

@@ -1,4 +1,6 @@
 #include "customer.h"
+#include "car.h"
+#include "request.h"
 
 customer::customer()
     :user()
@@ -9,12 +11,12 @@ customer::customer(string name, string password)
 {}
 
 customer::customer(const customer & data)
-{
-    this->debt = data.debt;
-    this->sum_of_income = data.sum_of_income;
-    this->rental_cars = this->rental_cars;
-    this->reserve_requests = this->reserve_requests;
-}
+    : user(data),
+    rental_cars(data.rental_cars),
+    reserve_requests(data.reserve_requests),
+    debt(data.debt),
+    sum_of_income(data.sum_of_income)
+{}
 
 void customer::reserve_request_function(car requested_car)
 {
@@ -38,7 +40,9 @@ bool customer::equal(const customer &target)
 car customer::payment()
 {
     debt = 0;
-
+    car temp(rental_cars.get_head()->data);
+    rental_cars.deletation(temp);
+    return temp;
 }
 
 int customer::get_debt()
@@ -46,7 +50,17 @@ int customer::get_debt()
     return debt;
 }
 
-int customer::set_debt(int data)
+void customer::set_debt(int data)
 {
     debt += data;
+}
+
+doubly_linklist<car> customer::getRental_cars() const
+{
+    return rental_cars;
+}
+
+doubly_linklist<car> customer::get_reserve_requests() const
+{
+    return reserve_requests;
 }
