@@ -21,6 +21,19 @@ car managing_cars::exact_search(car target)// in this function we should do the 
     return avl.search(target);
 }
 
+void managing_cars::print()
+{
+    int id = 0;
+    doubly_linklist<car>:: Node* head_cars = cars.get_head();
+    while(head_cars != nullptr){
+        cout << "id: " << id;
+        cout << "//price: " << head_cars->data.price;
+        cout << "\tcurrent_situation: " << head_cars->data.current_situation;
+        id ++;
+        head_cars = head_cars->next;
+    }
+}
+
 bool managing_cars::is_valid_insert(const car& new_car) // if we have a same car (same in the brand and model) the insertation was invalid
 {
     return cars.is_valid(new_car);

@@ -21,7 +21,7 @@ public:
     bool valid_reserve_request(managing_cars*, car, time_t start_time, time_t end_time);// we use that in the main
     void reservation(managing_cars *, car, time_t start_time, time_t end_time);// it's for make a request in this function and then add that in the current_customer
 
-    void renewal(car);// of that car find out the return_time of car and we know that the start time of next time and add that some day and we have the end time
+    bool renewal(managing_cars *managing_cars_pointer, car target);// of that car find out the return_time of car and we know that the start time of next time and add that some day and we have the end time
     car payement_function(car);// that call the payment function of current_customer
 
 

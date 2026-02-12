@@ -51,6 +51,6 @@ void user::setPassword(const string &newPassword)
 bool user::operator==(const user &new_user)
 {
     if(this->name == new_user.name)
-        return 1;
-    return 0;
+        return false;
+    return true;
 }

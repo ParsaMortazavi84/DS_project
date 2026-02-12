@@ -12,7 +12,7 @@ public:
     registration();
     bool sign_in(string, string);
     bool login(string, string);
-    int is_valid_name(user);
+    bool is_valid_name(user);
     void set_users(doubly_linklist<user> data);
 
 private:

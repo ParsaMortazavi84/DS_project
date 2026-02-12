@@ -87,6 +87,15 @@ void managing_customer::reservation(managing_cars *managing_cars_pointer, car ta
 
 }
 
+bool managing_customer::renewal(managing_cars* managing_cars_pointer, car target)
+{
+    if(!valid_reserve_request(managing_cars_pointer, target, target.return_time, target.return_time+3)){
+        return false;
+    }
+    reservation(managing_cars_pointer, target, target.return_time, target.return_time+3);
+    return true;
+}
+
 car managing_customer::payement_function(car )
 {
     // we should take the car of current_customer and then pass that to the return car

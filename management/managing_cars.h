@@ -18,7 +18,7 @@ public:
     void deletation(car target);
     car exact_search(car target);
 
-
+    void print();
     void searching_base_on_brande(string);
     void searching_base_on_price(int, int);
     void searching_base_on_model(models);

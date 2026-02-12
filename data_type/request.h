@@ -1,7 +1,7 @@
 #ifndef REQUEST_H
 #define REQUEST_H
 
-
+#include "doubly_linklist.h"
 #include <ctime>
 
 class customer;
@@ -33,6 +33,7 @@ public:
     void set_client(const customer *newClient);
 
 private:
+
     time_t start_time;
     time_t end_time;
     const customer* client;

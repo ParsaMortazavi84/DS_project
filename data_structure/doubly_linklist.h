@@ -78,10 +78,10 @@ public:
         Node* current = head;
         while (current != nullptr) {
             if(current->data == new_data){
-                return true;
+                return false;
             }
         }
-        return false;
+        return true;
     }
     void clear() {
         Node* current = head;
